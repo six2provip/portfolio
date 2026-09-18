@@ -94,9 +94,11 @@ export function QuakeTerminal({ isOpen, onClose, onNavigateZone }: QuakeTerminal
               `HANDLE:     ${siteConfig.handle} (also known as: ${siteConfig.aliases.join(', ')})`,
               `ROLE:       ${siteConfig.role}`,
               `LOCATION:   ${siteConfig.location}`,
-              `GITHUB:     ${siteConfig.github}`,
+              `PHONE:      ${siteConfig.phone}`,
               `EMAIL:      ${siteConfig.email}`,
-              `STATUS:     ${siteConfig.status}`
+              `LINKEDIN:   ${siteConfig.linkedin}`,
+              `GITHUB:     ${siteConfig.github}`,
+              `CURRENT:    ${siteConfig.status}`
             ].join('\n')
           }
         ]);
@@ -126,7 +128,7 @@ export function QuakeTerminal({ isOpen, onClose, onNavigateZone }: QuakeTerminal
             text: projects
               .map(
                 (p, i) =>
-                  `${i + 1}. ${p.title} [${p.category}]\n   Stack: ${p.technologies.join(', ')}\n   Repo: ${p.githubUrl}`
+                  `${i + 1}. ${p.title} [${p.category}]\n   Role: ${p.role}\n   Stack: ${p.technologies.join(', ')}\n   Link: ${p.demoUrl || p.githubUrl}`
               )
               .join('\n\n')
           }
@@ -161,11 +163,19 @@ export function QuakeTerminal({ isOpen, onClose, onNavigateZone }: QuakeTerminal
               type: 'output',
               text: [
                 '=== NGUYỄN GIA KHANG — CURRICULUM VITAE ===',
-                'EDUCATION:   FPT Polytechnic (Graduated 12/2023)',
-                'MAJOR:       Software Engineering',
-                'SPECIALTY:   Python, FastAPI, Next.js, React, MongoDB, Three.js, Docker',
-                'FOCUS:       Building high-reliability ERP platforms & interactive digital products.',
-                'CV FILE:     Download direct PDF from CV button or /resume.pdf'
+                `ROLE:        ${siteConfig.role}`,
+                `CURRENT:     SmartRetail (01/08/2026 — Present)`,
+                `CONTACT:     ${siteConfig.email} | ${siteConfig.phone}`,
+                `LOCATION:    ${siteConfig.location}`,
+                `LINKEDIN:    ${siteConfig.linkedin}`,
+                `GITHUB:      ${siteConfig.github}`,
+                'EDUCATION:   FPT Polytechnic (08/2021 — 12/2023) - Software Development Major',
+                'TIMELINE:',
+                '  • 01/08/2026 — Present: SmartRetail (Backend / Fullstack Developer)',
+                '  • 09/2025 — 07/2026:    Independent Software Engineer (GrabFood Bot, AI RAG, Godot)',
+                '  • 03/2024 — 08/2025:    Exnodes Company (Backend Developer - TWS Solutions, AIOS, PandaPay, SalonBookly)',
+                '  • 08/2021 — 12/2023:    FPT Polytechnic (Software Development Major - Graduated 12/2023)',
+                'DOWNLOAD:    /resume.pdf (NguyenGiaKhang-CV-BE.pdf)'
               ].join('\n')
             }
           ]);

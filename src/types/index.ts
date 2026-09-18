@@ -7,7 +7,7 @@ export type ExperienceMode = '3d' | '2d';
 export interface Project {
   id: string;
   title: string;
-  category: 'ERP' | 'PRODUCT' | 'AI' | '3D' | 'TOOLS';
+  category: 'ERP' | 'SAAS' | 'FINTECH' | 'PRODUCT' | 'AI' | '3D' | 'TOOLS';
   categoryLabel: string;
   tagline: string;
   description: string;
@@ -79,6 +79,8 @@ export interface SiteMeta {
   status: string;
   location: string;
   email: string;
+  phone?: string;
+  currentCompany?: string;
   github: string;
   linkedin: string;
 }

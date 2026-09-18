@@ -3,149 +3,173 @@ import { Project } from '@/types';
 export const projects: Project[] = [
   {
     id: 'smart-retail',
-    title: 'Dashboard SmartRetail',
+    title: 'SmartRetail Platform',
     category: 'ERP',
-    categoryLabel: 'ERP / BUSINESS PLATFORM',
-    tagline: 'Intelligent multi-store operations, inventory control, and retail metrics',
+    categoryLabel: 'ENTERPRISE ERP / RETAIL',
+    tagline: 'Multi-branch retail management, real-time POS processing & inventory telemetry',
     description:
-      'A comprehensive retail management system featuring real-time inventory monitoring, role-based access control (RBAC), point-of-sale workflows, and business telemetry dashboards.',
-    year: '2024',
-    role: 'Fullstack Developer',
-    technologies: ['React', 'Node.js', 'MongoDB', 'WebSocket', 'Tailwind CSS', 'FastAPI'],
+      'Engineering enterprise retail management platforms, real-time POS processing, multi-branch inventory tracking, and high-availability backend microservices at SmartRetail Company.',
+    year: '2026 — Present',
+    role: 'Backend / Fullstack Developer',
+    technologies: ['Python', 'FastAPI', 'Django', 'MySQL', 'Redis', 'Docker', 'WebSocket', 'React'],
     features: [
-      'Multi-branch retail telemetry and inventory tracking',
-      'Granular Role-Based Access Control (RBAC)',
-      'Real-time WebSocket event synchronization for sales & stock levels',
-      'Point-of-Sale (POS) order execution pipeline',
-      'Automated financial reports and operational metrics'
+      'Multi-branch retail telemetry and centralized inventory tracking',
+      'High-throughput Point-of-Sale (POS) order execution and sync',
+      'Real-time WebSocket event synchronization for stock & transactions',
+      'Granular Role-Based Access Control (RBAC) across merchant outlets',
+      'High-availability backend microservices deployed via Docker'
     ],
-    demoUrl: 'https://smartretail-demo.khang.os',
-    githubUrl: 'https://github.com/six2provip/dashboard-smartretail',
+    demoUrl: 'https://smartretail.vn',
+    githubUrl: 'https://github.com/six2provip',
     featured: true,
     accentColor: '#38bdf8'
   },
   {
-    id: 'erp-business',
-    title: 'ERP / Business Management',
+    id: 'tws-solutions',
+    title: 'TWS Solutions',
+    category: 'SAAS',
+    categoryLabel: 'B2B SAAS / RETAIL ERP',
+    tagline: 'Multi-tenant B2B SaaS ERP platform for smoke shop, vape shop, and retail businesses',
+    description:
+      'Architected multi-tenant backend APIs serving multiple merchant tenants. Built order management, subscription billing, integrated Nuvei, Goat, and Payzli payment gateways, PAX and Dejavoo POS terminals, and real-time WebSocket store sync.',
+    year: '2024 — 2025',
+    role: 'Backend Developer (Exnodes)',
+    technologies: ['Python', 'Django', 'MySQL', 'Redis', 'Docker', 'AWS', 'Firebase', 'Twilio', 'WebSocket'],
+    features: [
+      'Scalable multi-tenant backend APIs serving retail merchants',
+      'Payment gateway integrations: Nuvei, Goat, and Payzli',
+      'In-store transaction processing with PAX and Dejavoo POS terminals',
+      'Real-time merchant operations synchronization using WebSocket',
+      'Subscription billing workflows and automated recurring charges',
+      'Twilio SMS alerts and Firebase notifications'
+    ],
+    demoUrl: 'https://www.twssolutions.us',
+    githubUrl: 'https://app.twssolutions.us',
+    featured: true,
+    accentColor: '#10b981'
+  },
+  {
+    id: 'aios-platform',
+    title: 'AIOS Multi-Store ERP',
     category: 'ERP',
-    categoryLabel: 'ENTERPRISE SOFTWARE',
-    tagline: 'Modular enterprise resource orchestration and workflow automation',
+    categoryLabel: 'B2B SAAS / SUPPLY CHAIN',
+    tagline: 'Unified multi-store inventory, order orchestration, and merchant-supplier platform',
     description:
-      'Engineered a scalable ERP ecosystem integrating supply chain, human resource modules, audit logging, and automated invoice processing with high availability.',
-    year: '2024',
-    role: 'Backend & System Architect',
-    technologies: ['Python', 'FastAPI', 'PostgreSQL', 'Docker', 'Redis', 'Next.js'],
+      'Multi-tenant B2B SaaS ERP platform enabling merchants and suppliers to manage inventory, orders, payments, subscriptions, and multi-store operations from a unified system.',
+    year: '2024 — 2025',
+    role: 'Backend Developer (Exnodes)',
+    technologies: ['Python', 'Django', 'MySQL', 'Redis', 'Docker', 'AWS', 'Firebase', 'Twilio', 'WebSocket'],
     features: [
-      'Modular micro-service architecture with FastAPI gateways',
-      'PostgreSQL relational schema with high-performance indexing',
-      'Asynchronous task queuing via Redis and Celery',
-      'End-to-end audit trails and compliance logging',
-      'Interactive workflow automation engine'
+      'Centralized inventory, customer, order, and payment management modules',
+      'Real-time multi-store synchronization using WebSocket',
+      'Subscription billing and recurring payment solutions',
+      'Supplier and merchant operational workflows',
+      'Cloud-native deployment environments using Docker and AWS'
     ],
-    demoUrl: 'https://erp-demo.khang.os',
-    githubUrl: 'https://github.com/six2provip/erp-business-system',
+    demoUrl: 'https://aiosolutions.io',
+    githubUrl: 'https://app.aiosolutions.io',
     featured: true,
-    accentColor: '#34d399'
+    accentColor: '#3b82f6'
   },
   {
-    id: 'pulse-social',
-    title: 'Pulse',
-    category: 'PRODUCT',
-    categoryLabel: 'PRODUCT / SOCIAL',
-    tagline: 'High-speed real-time social communication and community engagement hub',
+    id: 'pandapay-fintech',
+    title: 'PandaPay POS Fintech',
+    category: 'FINTECH',
+    categoryLabel: 'FINTECH / POS PLATFORM',
+    tagline: 'Android PAX POS terminal payment processing and NFC transaction synchronization',
     description:
-      'A responsive community platform delivering low-latency messaging, media streaming channels, interactive discussions, and rich markdown communication.',
-    year: '2023',
-    role: 'Fullstack Developer',
-    technologies: ['Next.js', 'TypeScript', 'WebSocket', 'MongoDB', 'Node.js', 'Tailwind CSS'],
+      'Developed secure payment processing and transaction synchronization for Android-based PAX POS terminals, supporting NFC payment methods (Apple Pay, Google Pay, cards) and merchant reporting.',
+    year: '2024 — 2025',
+    role: 'Backend Developer (Exnodes)',
+    technologies: ['Python', 'Django', 'MySQL', 'Redis', 'Docker', 'AWS', 'WebSocket', 'PAX POS API'],
     features: [
-      'Bidirectional low-latency messaging over persistent WebSockets',
-      'Dynamic community channels and direct conversation rooms',
-      'Rich media preview rendering with lazy asset loading',
-      'Optimistic UI state updates for responsive user feedback',
-      'Custom presence tracking and typing status indicators'
+      'PAX POS terminal integration for secure in-store transactions',
+      'NFC contactless payment processing: Apple Pay, Google Pay, debit/credit',
+      'Real-time payment status synchronization via WebSocket',
+      'Transaction monitoring, settlement reporting, and card analytics',
+      'Scalable backend infrastructure deployed on AWS with Docker'
     ],
-    demoUrl: 'https://pulse-social.khang.os',
-    githubUrl: 'https://github.com/six2provip/pulse-social-platform',
+    demoUrl: 'https://pandapay.ca',
+    githubUrl: 'https://www.pandapay360.ca',
     featured: true,
-    accentColor: '#818cf8'
+    accentColor: '#f59e0b'
   },
   {
-    id: 'ai-dev-platform',
-    title: 'AI Developer Platform',
+    id: 'salonbookly',
+    title: 'SalonBookly',
+    category: 'SAAS',
+    categoryLabel: 'B2B SAAS / APPOINTMENT ERP',
+    tagline: 'B2B SaaS ERP for salon businesses: appointment scheduling, POS & loyalty programs',
+    description:
+      'B2B SaaS ERP platform providing real-time appointment scheduling, customer check-in, POS operations, RBAC, loyalty programs, and automated Firebase notifications.',
+    year: '2024 — 2025',
+    role: 'Backend Developer (Exnodes)',
+    technologies: ['Python', 'Django', 'MySQL', 'Redis', 'Docker', 'AWS', 'Firebase', 'Twilio', 'WebSocket'],
+    features: [
+      'Real-time appointment scheduling and customer check-in systems',
+      'Role-based access control (RBAC) for multi-user salon staff',
+      'Customer management and loyalty reward programs',
+      'Recurring subscription and payment workflows',
+      'Firebase notifications for operational events and customer engagement'
+    ],
+    demoUrl: 'https://salonbookly.com',
+    githubUrl: 'https://app.salonbookly.com',
+    featured: false,
+    accentColor: '#ec4899'
+  },
+  {
+    id: 'grabfood-automation',
+    title: 'GrabFood Deals Bot & AI',
     category: 'AI',
-    categoryLabel: 'AI / DEVELOPER TOOLS',
-    tagline: 'Context-aware code intelligence, prompt chaining, and automated agent pipelines',
+    categoryLabel: 'AUTOMATION & AI',
+    tagline: 'Browser automation + GrabFood Web APIs discount ranker, OpenAI APIs & RAG',
     description:
-      'An experimental platform connecting local and cloud LLMs to developer codebases for semantic code exploration, test generation, and automated diff inspection.',
-    year: '2024',
-    role: 'AI / Fullstack Engineer',
-    technologies: ['Python', 'FastAPI', 'Next.js', 'TypeScript', 'LangChain', 'Local LLMs'],
+      'Engineered an automated Telegram bot combining browser automation and GrabFood Web APIs to rank best discount offers, alongside AI-powered applications utilizing OpenAI APIs, RAG, and vector stores.',
+    year: '2025 — 2026',
+    role: 'Independent Software Engineer',
+    technologies: ['Python', 'FastAPI', 'OpenAI APIs', 'RAG / Vector DB', 'PostgreSQL', 'Docker', 'Telegram API'],
     features: [
-      'Contextual repository embedding and vector retrieval pipeline',
-      'Multi-model provider abstraction (OpenAI, Anthropic, Local Ollama)',
-      'Interactive streaming token responses with syntax highlighting',
-      'Automated pull request diff summarization and test scaffolding',
-      'Strict local privacy mode preserving developer IP'
+      'Real-time restaurant and promotion scraping via GrabFood Web APIs',
+      'Discount ranking algorithm categorized by user food choices',
+      'AI-powered RAG retrieval pipelines using OpenAI APIs and vector databases',
+      'Asynchronous Telegram bot webhook processing with automated updates',
+      'Gameplay systems & backend architecture with Godot Engine'
     ],
-    demoUrl: 'https://ai-platform.khang.os',
-    githubUrl: 'https://github.com/six2provip/ai-developer-platform',
+    demoUrl: 'https://github.com/six2provip',
+    githubUrl: 'https://github.com/six2provip',
     featured: true,
-    accentColor: '#f43f5e'
+    accentColor: '#8b5cf6'
   },
   {
-    id: 'interactive-3d-map',
-    title: 'Interactive 3D Map',
-    category: '3D',
-    categoryLabel: '3D / WEBGL',
-    tagline: 'Hardware-accelerated geospatial visualization and spatial node navigation',
-    description:
-      'An interactive 3D spatial terrain and navigation visualizer built on WebGL and Three.js, rendering dynamic topography, points of interest, and atmospheric lighting.',
-    year: '2023',
-    role: 'Creative / 3D Developer',
-    technologies: ['Three.js', 'WebGL', 'React Three Fiber', 'GLSL Shaders', 'TypeScript'],
-    features: [
-      'Procedural terrain generation and LOD (Level of Detail) meshing',
-      'Custom vertex and fragment GLSL shaders for atmospheric glow',
-      'Raycasted interactive POI nodes with smooth orbital transitions',
-      'Optimized 60 FPS rendering pipeline across desktop and mobile',
-      'Dynamic day/night lighting cycles with realistic shadow maps'
-    ],
-    demoUrl: 'https://3d-map.khang.os',
-    githubUrl: 'https://github.com/six2provip/interactive-3d-map',
-    featured: false,
-    accentColor: '#38bdf8'
-  },
-  {
-    id: 'developer-toolbox',
-    title: 'Developer Toolbox',
+    id: 'internal-hr',
+    title: 'Internal HR & Payroll System',
     category: 'TOOLS',
-    categoryLabel: 'DEVELOPER TOOLS',
-    tagline: 'Client-first developer utilities, schema converters, and network debuggers',
+    categoryLabel: 'INTERNAL ENTERPRISE HR',
+    tagline: 'Internal HR, attendance tracking, overtime calculation, and Excel payroll automation',
     description:
-      'A suite of zero-latency, privacy-focused utilities for software engineers: JSON/YAML/TypeScript converters, JWT decoders, regex testers, and mock API generators.',
-    year: '2024',
-    role: 'Frontend & Tooling Developer',
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Web Workers', 'Next.js'],
+      'Developed FastAPI backend APIs for employee operations, automated attendance tracking, overtime calculation, payroll processing, and Excel export systems.',
+    year: '2024 — 2025',
+    role: 'Backend Developer (Exnodes)',
+    technologies: ['Python', 'FastAPI', 'MySQL', 'Redis', 'Docker', 'Firebase', 'Excel Automation'],
     features: [
-      '100% client-side data processing with zero telemetry or network leaks',
-      'Web Worker offloading for CPU-intensive formatting and transformations',
-      'Keyboard-first UX with instant CMD+K command invocation',
-      'Offline-first PWA caching and instant local storage persistence',
-      'Customizable workspace layouts and quick snippet export'
+      'High-speed FastAPI backend services with Redis caching',
+      'Automated attendance tracking and overtime calculation algorithms',
+      'Automated Excel export system for payroll and attendance reports',
+      'Role-based access control and Firebase workflow notifications',
+      'Optimized database queries for large employee datasets'
     ],
-    demoUrl: 'https://toolbox.khang.os',
-    githubUrl: 'https://github.com/six2provip/developer-toolbox',
+    demoUrl: 'https://github.com/six2provip',
+    githubUrl: 'https://github.com/six2provip',
     featured: false,
-    accentColor: '#eab308'
+    accentColor: '#14b8a6'
   }
 ];
 
 export const projectCategories = [
   { id: 'ALL', label: 'ALL' },
-  { id: 'ERP', label: 'ERP' },
-  { id: 'PRODUCT', label: 'PRODUCT' },
-  { id: 'AI', label: 'AI' },
-  { id: '3D', label: '3D' },
-  { id: 'TOOLS', label: 'TOOLS' }
+  { id: 'ERP', label: 'ERP & RETAIL' },
+  { id: 'SAAS', label: 'B2B SAAS' },
+  { id: 'FINTECH', label: 'FINTECH & POS' },
+  { id: 'AI', label: 'AI & BOT' },
+  { id: 'TOOLS', label: 'INTERNAL TOOLS' }
 ] as const;

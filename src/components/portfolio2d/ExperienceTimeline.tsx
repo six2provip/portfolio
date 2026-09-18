@@ -1,24 +1,35 @@
 'use client';
 
 import { experiences } from '@/data/experience';
-import { Briefcase, GraduationCap, Calendar, CheckCircle } from 'lucide-react';
+import { Briefcase, GraduationCap, Calendar, CheckCircle, Download } from 'lucide-react';
 
 export function ExperienceTimeline() {
   return (
     <section id="experience" className="py-20 md:py-28 border-b border-white/10 relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="space-y-3 mb-16">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest">
-            <Briefcase className="h-4 w-4" />
-            <span>BACKGROUND &amp; TIMELINE</span>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+          <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest">
+              <Briefcase className="h-4 w-4" />
+              <span>BACKGROUND &amp; TIMELINE</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white">
+              Experience &amp; Education
+            </h2>
+            <p className="text-sm md:text-base text-zinc-400 max-w-xl">
+              A chronological timeline of software development milestones, project engineering, and academic background.
+            </p>
           </div>
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white">
-            Experience &amp; Education
-          </h2>
-          <p className="text-sm md:text-base text-zinc-400 max-w-xl">
-            A chronological timeline of software development milestones, project engineering, and academic background.
-          </p>
+
+          <a
+            href="/resume.pdf"
+            download="NguyenGiaKhang-CV-BE.pdf"
+            className="inline-flex items-center gap-2 rounded-xl bg-sky-500 px-4 py-2.5 text-xs font-mono font-bold text-black hover:bg-sky-400 transition-all shadow-lg shadow-sky-500/20 shrink-0"
+          >
+            <Download className="h-4 w-4" />
+            <span>DOWNLOAD CV (PDF)</span>
+          </a>
         </div>
 
         {/* Timeline List */}
