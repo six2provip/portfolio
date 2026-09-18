@@ -141,13 +141,25 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
                 Print-ready PDF version is updated regularly.
               </span>
             </div>
-            <a
-              href={`mailto:${siteConfig.email}?subject=Requesting Resume PDF for Nguyen Gia Khang`}
-              className="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-xs font-mono font-bold text-white hover:bg-white/20 transition-colors"
-            >
-              <Download className="h-3.5 w-3.5" />
-              <span>REQUEST DIRECT PDF</span>
-            </a>
+            <div className="flex gap-2">
+              <a
+                href="/resume.pdf"
+                download="Nguyen_Gia_Khang_Resume.pdf"
+                className="flex items-center gap-2 rounded-xl bg-sky-500 px-4 py-2 text-xs font-mono font-bold text-black hover:bg-sky-400 transition-colors shadow-lg shadow-sky-500/20"
+              >
+                <Download className="h-3.5 w-3.5" />
+                <span>DOWNLOAD PDF</span>
+              </a>
+
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-mono text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                <span>PREVIEW</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

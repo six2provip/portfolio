@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     'Software Engineer',
     'Vietnam'
   ],
-  authors: [{ name: 'Nguyễn Gia Khang', url: 'https://github.com/nguyengiakhang' }],
+  authors: [{ name: 'Nguyễn Gia Khang', url: 'https://github.com/six2provip' }],
   creator: 'Nguyễn Gia Khang',
   openGraph: {
     type: 'website',

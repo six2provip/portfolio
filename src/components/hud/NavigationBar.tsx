@@ -2,7 +2,16 @@
 
 import { siteConfig } from '@/data/site';
 import { ZoneId, ExperienceMode, QualityLevel } from '@/types';
-import { Volume2, VolumeX, Search, Sparkles, Layers, SlidersHorizontal, Terminal } from 'lucide-react';
+import { Language, translations } from '@/data/i18n';
+import {
+  Volume2,
+  VolumeX,
+  Search,
+  Layers,
+  SlidersHorizontal,
+  Terminal as TerminalIcon,
+  Globe
+} from 'lucide-react';
 
 interface NavigationBarProps {
   currentZone: ZoneId;
@@ -17,6 +26,9 @@ interface NavigationBarProps {
   onOpenProjects: () => void;
   onOpenLab: () => void;
   onOpenAbout: () => void;
+  onOpenTerminal: () => void;
+  lang: Language;
+  onToggleLanguage: () => void;
 }
 
 export function NavigationBar({
@@ -31,8 +43,12 @@ export function NavigationBar({
   onOpenCommandPalette,
   onOpenProjects,
   onOpenLab,
-  onOpenAbout
+  onOpenAbout,
+  onOpenTerminal,
+  lang,
+  onToggleLanguage
 }: NavigationBarProps) {
+  const t = translations[lang];
   const nextQuality = quality === 'high' ? 'medium' : quality === 'medium' ? 'low' : 'high';
 
   return (
@@ -54,7 +70,7 @@ export function NavigationBar({
           </button>
         </div>
 
-        {/* Center Quick Navigation Links (2D or 3D Zone Jumps) */}
+        {/* Center Quick Navigation Links */}
         <nav className="pointer-events-auto hidden md:flex items-center gap-1 rounded-full border border-white/10 bg-black/50 p-1 backdrop-blur-md">
           <button
             onClick={() => {
@@ -67,13 +83,13 @@ export function NavigationBar({
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            WORKSPACE
+            {t.nav.workspace}
           </button>
           <button
             onClick={onOpenProjects}
             className="rounded-full px-3.5 py-1 text-xs font-mono font-medium tracking-wider text-zinc-400 hover:text-white hover:bg-white/5 transition-all"
           >
-            PROJECTS
+            {t.nav.projects}
           </button>
           <button
             onClick={() => {
@@ -86,7 +102,7 @@ export function NavigationBar({
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            LAB
+            {t.nav.lab}
           </button>
           <button
             onClick={() => {
@@ -100,7 +116,7 @@ export function NavigationBar({
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            GAMING
+            {t.nav.gaming}
           </button>
           <button
             onClick={() => {
@@ -113,12 +129,33 @@ export function NavigationBar({
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            ABOUT
+            {t.nav.about}
           </button>
         </nav>
 
         {/* Right Utility Controls */}
         <div className="pointer-events-auto flex items-center gap-2">
+          {/* Quake Terminal Toggle */}
+          <button
+            onClick={onOpenTerminal}
+            className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-black/60 px-2.5 py-1.5 backdrop-blur-md text-xs font-mono text-zinc-300 hover:border-sky-400/40 hover:text-sky-300 transition-all"
+            title="Open Interactive CLI Terminal (` or ~)"
+          >
+            <TerminalIcon className="h-3.5 w-3.5 text-sky-400" />
+            <span className="hidden lg:inline text-[11px]">{t.nav.terminal}</span>
+            <kbd className="hidden sm:inline rounded bg-white/10 px-1 py-0.2 text-[10px] text-zinc-400">~</kbd>
+          </button>
+
+          {/* Language Switcher */}
+          <button
+            onClick={onToggleLanguage}
+            className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-black/60 px-2.5 py-1.5 backdrop-blur-md text-xs font-mono font-bold text-zinc-200 hover:border-emerald-400/40 hover:text-emerald-300 transition-all"
+            title="Toggle Language (EN / VI)"
+          >
+            <Globe className="h-3.5 w-3.5 text-emerald-400" />
+            <span>{lang.toUpperCase()}</span>
+          </button>
+
           {/* Command Palette Button */}
           <button
             onClick={onOpenCommandPalette}

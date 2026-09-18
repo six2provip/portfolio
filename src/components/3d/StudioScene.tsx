@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { ZoneId } from '@/types';
 import { QualityConfig } from '@/hooks/useQualitySettings';
 import { MovementKeys } from '@/hooks/useKeyboardControls';
+import { ContactShadows } from '@react-three/drei';
 import { StudioFloor } from './zones/StudioFloor';
 import { StudioLighting } from './effects/StudioLighting';
 import { DustParticles } from './effects/DustParticles';
@@ -54,6 +55,18 @@ export function StudioScene({
 
       {/* Architectural ground and boundary */}
       <StudioFloor />
+
+      {/* Realistic contact shadows under desk and equipment */}
+      {quality.shadows && (
+        <ContactShadows
+          position={[0, 0.015, 0]}
+          opacity={0.65}
+          scale={30}
+          blur={2.2}
+          far={4.5}
+          color="#000000"
+        />
+      )}
 
       {/* Zone 1: Entry Portal */}
       <EntryZone onEnterWorkspace={() => onZoneChange('workspace')} />

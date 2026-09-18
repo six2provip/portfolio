@@ -6,6 +6,7 @@ import { ZoneId, ExperienceMode, Project } from '@/types';
 import { useStudioAudio } from '@/hooks/useStudioAudio';
 import { useQualitySettings } from '@/hooks/useQualitySettings';
 import { useKeyboardControls } from '@/hooks/useKeyboardControls';
+import { useLanguage } from '@/hooks/useLanguage';
 
 import { NavigationBar } from '@/components/hud/NavigationBar';
 import { RoomNavigator } from '@/components/hud/RoomNavigator';
@@ -16,6 +17,7 @@ import { IntroOverlay } from '@/components/modals/IntroOverlay';
 import { ProjectModal } from '@/components/modals/ProjectModal';
 import { CommandPalette } from '@/components/modals/CommandPalette';
 import { ResumeModal } from '@/components/modals/ResumeModal';
+import { QuakeTerminal } from '@/components/terminal/QuakeTerminal';
 
 // Dynamically import 3D Studio Canvas with SSR disabled to prevent hydration issues
 const StudioCanvas = dynamic(
@@ -35,15 +37,17 @@ export default function Home() {
   const [currentZone, setCurrentZone] = useState<ZoneId>('entry');
   const [isFreeExplore, setIsFreeExplore] = useState<boolean>(false);
 
-  // Modals state
+  // Modals & Terminal state
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState<boolean>(false);
 
-  // Audio, Quality and Keyboard hooks
+  // Audio, Quality, Keyboard, and Language hooks
   const audio = useStudioAudio();
   const quality = useQualitySettings();
   const movement = useKeyboardControls();
+  const { lang, t, toggleLanguage } = useLanguage();
 
   // Zone transition handler with audio blip
   const handleZoneChange = useCallback((zone: ZoneId) => {
@@ -51,13 +55,24 @@ export default function Home() {
     audio.playTransition();
   }, [audio]);
 
-  // Global CMD+K / CTRL+K listener
+  // Global key listener: CMD+K for palette, Backtick/Tilde for Quake terminal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // CMD+K / CTRL+K
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setIsCommandPaletteOpen((prev) => !prev);
         audio.playClick();
+        return;
+      }
+
+      // Backtick / Tilde key ` or ~
+      if (e.key === '`' || e.key === '~') {
+        if (!(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)) {
+          e.preventDefault();
+          setIsTerminalOpen((prev) => !prev);
+          audio.playClick();
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -129,6 +144,22 @@ export default function Home() {
           }
           audio.playClick();
         }}
+        onOpenTerminal={() => {
+          setIsTerminalOpen(true);
+          audio.playClick();
+        }}
+        lang={lang}
+        onToggleLanguage={toggleLanguage}
+      />
+
+      {/* Interactive Drop-down Quake Terminal */}
+      <QuakeTerminal
+        isOpen={isTerminalOpen}
+        onClose={() => setIsTerminalOpen(false)}
+        onNavigateZone={(zone) => {
+          setExperienceMode('3d');
+          handleZoneChange(zone);
+        }}
       />
 
       {/* 3D Studio Experience Container */}
@@ -186,7 +217,7 @@ export default function Home() {
         <ControlGuide />
       </div>
 
-      {/* Accessible 2D Experience (Always present in DOM for search engines, screen readers, and direct access) */}
+      {/* Accessible 2D Experience */}
       <div className={experienceMode === '2d' ? 'block' : 'hidden'}>
         <Portfolio2D
           onSwitchTo3D={() => {
@@ -203,6 +234,7 @@ export default function Home() {
             audio.playClick();
           }}
           onSuccessSound={audio.playSuccess}
+          lang={lang}
         />
       </div>
 
@@ -211,7 +243,8 @@ export default function Home() {
         <div className="sr-only" aria-label="Accessible portfolio content">
           <h2>Fullstack Developer — Nguyễn Gia Khang (KHANG.OS)</h2>
           <p>Graduated FPT Polytechnic 12/2023. Core stack: Python, FastAPI, React, Next.js, MongoDB, Three.js.</p>
-          <p>Featured projects include Dashboard SmartRetail, ERP Business Management, Pulse, AI Developer Platform, Interactive 3D Map, and Developer Toolbox.</p>
+          <p>GitHub: https://github.com/six2provip</p>
+          <p>Featured projects: Dashboard SmartRetail, ERP Business Management, Pulse, AI Developer Platform, Interactive 3D Map, and Developer Toolbox.</p>
         </div>
       )}
 

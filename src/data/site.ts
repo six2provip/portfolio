@@ -2,9 +2,9 @@ import { SiteMeta } from '@/types';
 
 export const siteConfig: SiteMeta = {
   name: 'Nguyễn Gia Khang',
-  handle: 'khang',
+  handle: 'six2provip',
   brand: 'KHANG.OS',
-  aliases: ['Khang', 'Khang Béo', 'Six2'],
+  aliases: ['Khang', 'Khang Béo', 'Six2', 'six2provip'],
   title: 'Nguyễn Gia Khang — Fullstack Developer',
   role: 'FULLSTACK DEVELOPER',
   tagline: 'BUILDER • DEVELOPER • CREATOR',
@@ -12,7 +12,7 @@ export const siteConfig: SiteMeta = {
   status: 'ONLINE • READY TO COLLABORATE',
   location: 'Vietnam',
   email: 'nguyengiakhang.dev@gmail.com',
-  github: 'https://github.com/nguyengiakhang',
+  github: 'https://github.com/six2provip',
   linkedin: 'https://linkedin.com/in/nguyengiakhang',
 };
 

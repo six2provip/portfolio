@@ -1,116 +1,206 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { useFrame } from '@react-three/fiber';
 import { InteractiveItem } from '../InteractiveItem';
 
 interface WorkspaceZoneProps {
   onOpenProjects: () => void;
 }
 
+const CODE_SCRIPTS = [
+  '// KHANG.OS — ARCHITECTURAL WORKSPACE',
+  "import { FullstackEngineer } from '@khang/core';",
+  "import { FastAPI, NextJS, ThreeJS } from '@khang/stack';",
+  '',
+  "const engineer = new FullstackEngineer('Nguyễn Gia Khang');",
+  "engineer.setGitHub('https://github.com/six2provip');",
+  '',
+  'export async function deployProductionArchitecture() {',
+  '  const runtime = await engineer.initializeRuntime();',
+  '  const systems = [',
+  '    "Dashboard SmartRetail [ERP / POS]",',
+  '    "ERP Enterprise Orchestrator",',
+  '    "Pulse Realtime Messaging",',
+  '    "AI Developer Platform",',
+  '    "Interactive 3D WebGL Map",',
+  '    "Developer Toolbox"',
+  '  ];',
+  '  return runtime.mountShowcase(systems);',
+  '}',
+  '// Status: READY • Click monitor to explore'
+];
+
 export function WorkspaceZone({ onOpenProjects }: WorkspaceZoneProps) {
-  // Generate high-resolution procedural canvas texture for the ultrawide monitor screen
-  const screenTexture = useMemo(() => {
-    if (typeof window === 'undefined') return null;
-    const canvas = document.createElement('canvas');
-    canvas.width = 1024;
-    canvas.height = 512;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return null;
+  const animState = useRef({
+    lineIndex: 0,
+    charIndex: 0,
+    elapsed: 0,
+    lastUpdate: 0,
+    cursorBlink: true,
+    cursorElapsed: 0
+  });
 
-    // Dark IDE background
-    ctx.fillStyle = '#080a10';
-    ctx.fillRect(0, 0, 1024, 512);
-
-    // Top editor header / tabs
-    ctx.fillStyle = '#111420';
-    ctx.fillRect(0, 0, 1024, 40);
-
-    // Window controls
-    ctx.fillStyle = '#ef4444';
-    ctx.beginPath();
-    ctx.arc(24, 20, 6, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = '#eab308';
-    ctx.beginPath();
-    ctx.arc(44, 20, 6, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = '#22c55e';
-    ctx.beginPath();
-    ctx.arc(64, 20, 6, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Tab title
-    ctx.fillStyle = '#38bdf8';
-    ctx.font = 'bold 15px monospace';
-    ctx.fillText('khang.os / workspace.tsx', 96, 25);
-
-    ctx.fillStyle = '#64748b';
-    ctx.font = '14px monospace';
-    ctx.fillText('projects.data.ts', 360, 25);
-    ctx.fillText('terminal.sh', 520, 25);
-
-    // Code area
-    const lines = [
-      { text: '// KHANG.OS — ARCHITECTURAL WORKSPACE', color: '#64748b' },
-      { text: "import { Developer, Systems } from '@khang/core';", color: '#c084fc' },
-      { text: "const engineer = new Developer('Nguyễn Gia Khang');", color: '#38bdf8' },
-      { text: '', color: '#fff' },
-      { text: 'export async function buildNextGenerationExperience() {', color: '#f59e0b' },
-      { text: '  const stack = ["Python", "FastAPI", "React", "Next.js", "MongoDB", "AI"];', color: '#34d399' },
-      { text: '  const ready = await Systems.verifyIntegrity({ status: "ONLINE" });', color: '#94a3b8' },
-      { text: '  return engineer.launchProjects(stack);', color: '#38bdf8' },
-      { text: '}', color: '#f59e0b' },
-      { text: '', color: '#fff' },
-      { text: '▶ STATUS: 6 PROJECTS READY FOR EXPLORATION', color: '#34d399' },
-      { text: '▶ CLICK SCREEN TO OPEN COMPLETE SHOWCASE', color: '#38bdf8' }
-    ];
-
-    let y = 80;
-    lines.forEach((line) => {
-      ctx.fillStyle = line.color;
-      ctx.font = '17px "Courier New", monospace';
-      ctx.fillText(line.text, 36, y);
-      y += 28;
-    });
-
-    // Right side project preview card
-    ctx.fillStyle = '#101422';
-    ctx.strokeStyle = '#38bdf8';
-    ctx.lineWidth = 2;
-    ctx.roundRect(620, 70, 360, 380, 10);
-    ctx.fill();
-    ctx.stroke();
-
-    ctx.fillStyle = '#38bdf8';
-    ctx.font = 'bold 20px monospace';
-    ctx.fillText('PROJECT SHOWCASE', 650, 115);
-
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '14px sans-serif';
-    ctx.fillText('• Dashboard SmartRetail (ERP / POS)', 650, 160);
-    ctx.fillText('• ERP Business Management', 650, 195);
-    ctx.fillText('• Pulse Social Platform', 650, 230);
-    ctx.fillText('• AI Developer Platform', 650, 265);
-    ctx.fillText('• Interactive 3D Map', 650, 300);
-    ctx.fillText('• Developer Toolbox', 650, 335);
-
-    // Call to action button on screen
-    ctx.fillStyle = '#0284c7';
-    ctx.roundRect(650, 375, 300, 48, 6);
-    ctx.fill();
-
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 16px monospace';
-    ctx.fillText('CLICK TO EXPLORE [ENTER]', 680, 405);
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
-    return texture;
+  const { canvas, ctx, texture } = useMemo(() => {
+    if (typeof window === 'undefined') {
+      return { canvas: null, ctx: null, texture: null };
+    }
+    const c = document.createElement('canvas');
+    c.width = 1024;
+    c.height = 512;
+    const context = c.getContext('2d');
+    const tex = new THREE.CanvasTexture(c);
+    tex.minFilter = THREE.LinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    return { canvas: c, ctx: context, texture: tex };
   }, []);
+
+  // Animate live coding texture in useFrame
+  useFrame((state, delta) => {
+    if (!ctx || !texture) return;
+    const s = animState.current;
+    s.elapsed += delta;
+    s.cursorElapsed += delta;
+
+    // Toggle cursor every 400ms
+    if (s.cursorElapsed > 0.4) {
+      s.cursorBlink = !s.cursorBlink;
+      s.cursorElapsed = 0;
+    }
+
+    // Type a new character every 35ms
+    if (s.elapsed - s.lastUpdate > 0.035) {
+      s.lastUpdate = s.elapsed;
+
+      if (s.lineIndex < CODE_SCRIPTS.length) {
+        const currentLine = CODE_SCRIPTS[s.lineIndex];
+        if (s.charIndex < currentLine.length) {
+          s.charIndex += 1;
+        } else {
+          s.lineIndex += 1;
+          s.charIndex = 0;
+        }
+      } else {
+        // Pause for 5 seconds when complete, then restart
+        if (s.elapsed > 20) {
+          s.lineIndex = 0;
+          s.charIndex = 0;
+          s.elapsed = 0;
+          s.lastUpdate = 0;
+        }
+      }
+
+      // Redraw Canvas
+      // Background
+      ctx.fillStyle = '#080a10';
+      ctx.fillRect(0, 0, 1024, 512);
+
+      // Top Tab Bar
+      ctx.fillStyle = '#111420';
+      ctx.fillRect(0, 0, 1024, 42);
+
+      // Window controls
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath();
+      ctx.arc(24, 21, 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#eab308';
+      ctx.beginPath();
+      ctx.arc(44, 21, 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#22c55e';
+      ctx.beginPath();
+      ctx.arc(64, 21, 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Tab text
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 14px monospace';
+      ctx.fillText('khang.os / workspace.ts', 95, 26);
+
+      ctx.fillStyle = '#64748b';
+      ctx.font = '13px monospace';
+      ctx.fillText('projects.data.ts', 330, 26);
+      ctx.fillText('terminal.sh', 480, 26);
+
+      // Render typed lines
+      let y = 78;
+      for (let i = 0; i <= Math.min(s.lineIndex, CODE_SCRIPTS.length - 1); i++) {
+        const fullLine = CODE_SCRIPTS[i];
+        const lineToDraw = i === s.lineIndex ? fullLine.substring(0, s.charIndex) : fullLine;
+
+        // Syntax coloring
+        if (lineToDraw.startsWith('//')) {
+          ctx.fillStyle = '#64748b';
+        } else if (lineToDraw.startsWith('import')) {
+          ctx.fillStyle = '#c084fc';
+        } else if (lineToDraw.startsWith('export') || lineToDraw.startsWith('const')) {
+          ctx.fillStyle = '#f59e0b';
+        } else if (lineToDraw.includes('"') || lineToDraw.includes("'")) {
+          ctx.fillStyle = '#34d399';
+        } else {
+          ctx.fillStyle = '#e2e8f0';
+        }
+
+        ctx.font = '16px "Courier New", monospace';
+        ctx.fillText(lineToDraw, 36, y);
+
+        // Blinking cursor on active line
+        if (i === s.lineIndex && s.cursorBlink) {
+          const textWidth = ctx.measureText(lineToDraw).width;
+          ctx.fillStyle = '#38bdf8';
+          ctx.fillRect(38 + textWidth, y - 13, 8, 16);
+        }
+
+        y += 24;
+      }
+
+      // Right side Live Telemetry & Project preview panel
+      ctx.fillStyle = '#0f1322';
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.roundRect(620, 65, 370, 395, 12);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 18px monospace';
+      ctx.fillText('PROJECT TELEMETRY', 645, 105);
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '13px sans-serif';
+      ctx.fillText('• Dashboard SmartRetail (ERP / POS)', 645, 145);
+      ctx.fillText('• ERP Business Management', 645, 180);
+      ctx.fillText('• Pulse Realtime Social Platform', 645, 215);
+      ctx.fillText('• AI Developer Platform', 645, 250);
+      ctx.fillText('• Interactive 3D WebGL Map', 645, 285);
+      ctx.fillText('• Developer Toolbox Suite', 645, 320);
+
+      // System telemetry bar
+      ctx.fillStyle = '#161c30';
+      ctx.roundRect(645, 345, 320, 35, 6);
+      ctx.fill();
+
+      ctx.fillStyle = '#34d399';
+      ctx.font = '12px monospace';
+      ctx.fillText(`SYSTEM: ONLINE • 60 FPS • PING 12ms`, 660, 367);
+
+      // Call to action button on screen
+      ctx.fillStyle = '#0284c7';
+      ctx.roundRect(645, 395, 320, 48, 8);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 15px monospace';
+      ctx.fillText('CLICK TO EXPLORE WORK [ENTER]', 670, 425);
+
+      texture.needsUpdate = true;
+    }
+  });
 
   return (
     <group position={[0, 0, 0]}>
@@ -158,17 +248,14 @@ export function WorkspaceZone({ onOpenProjects }: WorkspaceZoneProps) {
 
       {/* Minimalist Desk Task Lamp */}
       <group position={[-1.2, 0.99, -0.3]}>
-        {/* Lamp Base */}
         <mesh position={[0, 0.02, 0]} castShadow>
           <cylinderGeometry args={[0.1, 0.12, 0.03, 24]} />
           <meshStandardMaterial color="#1b1e2a" metalness={0.8} roughness={0.3} />
         </mesh>
-        {/* Lamp Stem */}
         <mesh position={[0.05, 0.35, 0]} rotation={[0, 0, -0.15]} castShadow>
           <cylinderGeometry args={[0.015, 0.015, 0.7, 16]} />
           <meshStandardMaterial color="#38bdf8" metalness={0.9} roughness={0.2} />
         </mesh>
-        {/* Lamp Head */}
         <mesh position={[0.22, 0.68, 0.15]} rotation={[0.4, 0, -0.3]} castShadow>
           <boxGeometry args={[0.25, 0.03, 0.08]} />
           <meshStandardMaterial color="#0f1118" metalness={0.8} />
@@ -181,7 +268,6 @@ export function WorkspaceZone({ onOpenProjects }: WorkspaceZoneProps) {
           <cylinderGeometry args={[0.08, 0.06, 0.16, 16]} />
           <meshStandardMaterial color="#181a22" roughness={0.8} />
         </mesh>
-        {/* Foliage Spheres */}
         <mesh position={[0, 0.2, 0]} castShadow>
           <sphereGeometry args={[0.09, 12, 12]} />
           <meshStandardMaterial color="#10b981" roughness={0.7} />
@@ -196,29 +282,25 @@ export function WorkspaceZone({ onOpenProjects }: WorkspaceZoneProps) {
 
       {/* Ergonomic Office Chair */}
       <group position={[0, 0, 0.85]}>
-        {/* Chair Base */}
         <mesh position={[0, 0.1, 0]} castShadow>
           <cylinderGeometry args={[0.3, 0.35, 0.08, 5]} />
           <meshStandardMaterial color="#11131a" metalness={0.8} />
         </mesh>
-        {/* Stem */}
         <mesh position={[0, 0.35, 0]} castShadow>
           <cylinderGeometry args={[0.03, 0.03, 0.45, 12]} />
           <meshStandardMaterial color="#2d3748" metalness={0.9} />
         </mesh>
-        {/* Seat Cushion */}
         <mesh position={[0, 0.6, 0]} castShadow>
           <boxGeometry args={[0.55, 0.08, 0.52]} />
           <meshStandardMaterial color="#181b26" roughness={0.8} />
         </mesh>
-        {/* Mesh Backrest */}
         <mesh position={[0, 1.05, 0.24]} rotation={[-0.08, 0, 0]} castShadow>
           <boxGeometry args={[0.52, 0.7, 0.06]} />
           <meshStandardMaterial color="#141720" roughness={0.9} />
         </mesh>
       </group>
 
-      {/* INTERACTIVE ULTRAWIDE CURVED MONITOR */}
+      {/* INTERACTIVE ULTRAWIDE CURVED MONITOR WITH LIVE TYPING TEXTURE */}
       <InteractiveItem
         id="projects-monitor"
         label="PROJECTS SHOWCASE"
@@ -238,31 +320,31 @@ export function WorkspaceZone({ onOpenProjects }: WorkspaceZoneProps) {
           <meshStandardMaterial color="#2b3042" metalness={0.9} roughness={0.2} />
         </mesh>
 
-        {/* Monitor Back Bezel (Slightly curved geometry) */}
+        {/* Monitor Back Bezel */}
         <mesh position={[0, 0.6, 0]} castShadow>
           <boxGeometry args={[2.0, 0.7, 0.05]} />
           <meshStandardMaterial color="#11131a" metalness={0.6} roughness={0.4} />
         </mesh>
 
-        {/* Active Monitor Screen with Custom Dynamic IDE Canvas Texture */}
+        {/* Active Monitor Screen with Live Animated Code Canvas */}
         <mesh position={[0, 0.6, 0.028]}>
           <planeGeometry args={[1.96, 0.66]} />
-          {screenTexture ? (
-            <meshBasicMaterial map={screenTexture} toneMapped={false} />
+          {texture ? (
+            <meshBasicMaterial map={texture} toneMapped={false} />
           ) : (
             <meshStandardMaterial
               color="#0d1117"
               emissive="#38bdf8"
-              emissiveIntensity={0.2}
+              emissiveIntensity={0.3}
             />
           )}
         </mesh>
 
-        {/* Subtle Ambient Light radiating from screen onto the desk */}
+        {/* Dynamic Light radiating from screen onto desk */}
         <pointLight
           position={[0, 0.6, 0.4]}
-          intensity={1.2}
-          distance={2.5}
+          intensity={1.4}
+          distance={2.8}
           color="#38bdf8"
         />
       </InteractiveItem>

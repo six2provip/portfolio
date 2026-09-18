@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Project } from '@/types';
 import { X, ExternalLink, CheckCircle2, Terminal, Layers, ArrowLeft } from 'lucide-react';
 import { GithubIcon } from '@/components/ui/Icons';
+import { ProjectPreviewMockup } from '@/components/projects/ProjectPreviewMockup';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -62,49 +63,12 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </p>
           </div>
 
-          {/* Media Mockup Banner */}
-          <div className="relative w-full aspect-video rounded-xl border border-white/10 bg-gradient-to-br from-[#121624] to-[#090b12] p-6 flex flex-col justify-between overflow-hidden shadow-inner">
-            <div className="absolute inset-0 bg-dot-grid opacity-20 pointer-events-none" />
-            
-            {/* Mockup Terminal Topbar */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <div className="flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-rose-500/60" />
-                <span className="h-2.5 w-2.5 rounded-full bg-amber-500/60" />
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/60" />
-                <span className="font-mono text-[11px] text-zinc-400 ml-2">
-                  system://{project.id}.khang.os
-                </span>
-              </div>
-              <span className="font-mono text-[10px] text-zinc-400">
-                STATUS: DEPLOYED
-              </span>
-            </div>
-
-            {/* Visual Graphic Representation */}
-            <div className="flex flex-col items-center justify-center py-6 text-center">
-              <div className="h-12 w-12 rounded-2xl bg-sky-500/10 border border-sky-400/30 flex items-center justify-center text-sky-400 mb-3 shadow-lg shadow-sky-500/10">
-                <Layers className="h-6 w-6" />
-              </div>
-              <span className="font-mono text-xs uppercase tracking-widest text-zinc-400">
-                ARCHITECTURE PREVIEW
-              </span>
-              <span className="text-sm font-semibold text-zinc-200 mt-1 max-w-sm">
-                {project.description}
-              </span>
-            </div>
-
-            {/* Bottom Tech pills inside preview */}
-            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-white/5">
-              {project.technologies.slice(0, 4).map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded bg-white/5 px-2 py-0.5 text-[10px] font-mono text-zinc-400"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
+          {/* High-Fidelity Interactive Project Mockup */}
+          <div className="space-y-2">
+            <h3 className="font-mono text-xs uppercase tracking-wider text-zinc-400">
+              SYSTEM DEMO &amp; TELEMETRY
+            </h3>
+            <ProjectPreviewMockup project={project} />
           </div>
 
           {/* Description Section */}

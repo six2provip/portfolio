@@ -9,18 +9,22 @@ import { SkillsSection } from './SkillsSection';
 import { ExperienceTimeline } from './ExperienceTimeline';
 import { ContactSection } from './ContactSection';
 
+import { Language } from '@/data/i18n';
+
 interface Portfolio2DProps {
   onSwitchTo3D: () => void;
   onSelectProject: (project: Project) => void;
   onOpenResume: () => void;
   onSuccessSound?: () => void;
+  lang?: Language;
 }
 
 export function Portfolio2D({
   onSwitchTo3D,
   onSelectProject,
   onOpenResume,
-  onSuccessSound
+  onSuccessSound,
+  lang = 'en'
 }: Portfolio2DProps) {
   return (
     <div className="relative min-h-screen bg-[#07080c] text-white">
@@ -31,6 +35,7 @@ export function Portfolio2D({
           el?.scrollIntoView({ behavior: 'smooth' });
         }}
         onOpenResume={onOpenResume}
+        lang={lang}
       />
 
       <ProjectsSection onSelectProject={onSelectProject} />

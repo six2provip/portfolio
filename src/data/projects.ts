@@ -20,7 +20,7 @@ export const projects: Project[] = [
       'Automated financial reports and operational metrics'
     ],
     demoUrl: 'https://smartretail-demo.khang.os',
-    githubUrl: 'https://github.com/nguyengiakhang/dashboard-smartretail',
+    githubUrl: 'https://github.com/six2provip/dashboard-smartretail',
     featured: true,
     accentColor: '#38bdf8'
   },
@@ -43,7 +43,7 @@ export const projects: Project[] = [
       'Interactive workflow automation engine'
     ],
     demoUrl: 'https://erp-demo.khang.os',
-    githubUrl: 'https://github.com/nguyengiakhang/erp-business-system',
+    githubUrl: 'https://github.com/six2provip/erp-business-system',
     featured: true,
     accentColor: '#34d399'
   },
@@ -66,7 +66,7 @@ export const projects: Project[] = [
       'Custom presence tracking and typing status indicators'
     ],
     demoUrl: 'https://pulse-social.khang.os',
-    githubUrl: 'https://github.com/nguyengiakhang/pulse-social-platform',
+    githubUrl: 'https://github.com/six2provip/pulse-social-platform',
     featured: true,
     accentColor: '#818cf8'
   },
@@ -89,7 +89,7 @@ export const projects: Project[] = [
       'Strict local privacy mode preserving developer IP'
     ],
     demoUrl: 'https://ai-platform.khang.os',
-    githubUrl: 'https://github.com/nguyengiakhang/ai-developer-platform',
+    githubUrl: 'https://github.com/six2provip/ai-developer-platform',
     featured: true,
     accentColor: '#f43f5e'
   },
@@ -112,7 +112,7 @@ export const projects: Project[] = [
       'Dynamic day/night lighting cycles with realistic shadow maps'
     ],
     demoUrl: 'https://3d-map.khang.os',
-    githubUrl: 'https://github.com/nguyengiakhang/interactive-3d-map',
+    githubUrl: 'https://github.com/six2provip/interactive-3d-map',
     featured: false,
     accentColor: '#38bdf8'
   },
@@ -135,7 +135,7 @@ export const projects: Project[] = [
       'Customizable workspace layouts and quick snippet export'
     ],
     demoUrl: 'https://toolbox.khang.os',
-    githubUrl: 'https://github.com/nguyengiakhang/developer-toolbox',
+    githubUrl: 'https://github.com/six2provip/developer-toolbox',
     featured: false,
     accentColor: '#eab308'
   }
